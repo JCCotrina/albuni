@@ -16,6 +16,8 @@ import { useHistory } from "react-router-dom";
 import Album from "./components/Album/Album";
 import "./App.css";
 
+const API_BASE = 'http://localhost:3800/api';
+
 const useStyles = makeStyles((theme) => ({
   container:{
     padding:"20",
@@ -71,17 +73,18 @@ export default function SignUpConsumidor() {
   }
   const handleSubmit=(event) => {
     event.preventDefault();
-    alert(validateData());
     if(validateData()){
-      axios.post("/api/registrar-consumidor", newUser )
+      axios.post(`${API_BASE}/subir-foto`, newUser )
         .then(res => { 
-          if(res.data.ok){
+          console.log();
+          if(res.data.response.likes === 0){
             alert("Se pudo subir correctamente");
             setOpen(false);
           }
         })
         .catch(error => {
           alert('No se pudo subir la imagen');
+          console.log(newUser);
         });
     }
   }
@@ -108,7 +111,7 @@ export default function SignUpConsumidor() {
             <Typography variant="h6" color="inherit" noWrap>
               ALBUNI
             </Typography>
-            <Button variant="contained" color="primary" onClick={handleClickOpen}>
+            <Button variant="contained" color="secundarya" onClick={handleClickOpen} style={{'margin-left': 'auto'}}>
               Subir
             </Button>
           </Toolbar>
@@ -124,11 +127,11 @@ export default function SignUpConsumidor() {
          <DialogContent dividers={true} >
            <TextField
                   autoComplete="Nombre"
-                  name="nombre"
+                  name="dueño"
                   variant="outlined"
                   required
                   fullWidth
-                  id="NombreConsumidor"
+                  id="dueño"
                   label="Nombre"
                   autoFocus
                   className={classes.content}

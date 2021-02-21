@@ -7,7 +7,7 @@ const cluster = require("cluster");
 const clusterWorkerSize = os.cpus().length;
 
 mongoose.Promise = global.Promise;
-const urlDB = "mongodb://localhost:27017/concurrentes";
+const urlDB = 'mongodb+srv://userQhatu:softwareQhatu@qhatu.5zrri.mongodb.net/qhatuDB?retryWrites=true&w=majority';
 
 //Conexion Database
 exports.dataBaseConection = () => {
