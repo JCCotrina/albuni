@@ -70,33 +70,13 @@ const getImage = function (card) {
 
 const cardsList = [
   {
-    autor: "freider",
+    id : "12344",
+    dueño: "freider",
     descripcion: "Bienvenidos a esta increible aventura",
-    foto: "https://picsum.photos/400?random=1",
+    imagen: "https://picsum.photos/400?random=1",
     likes: "1239",
     dislikes: "12"
   },
-  {
-    autor: "freider",
-    descripcion: "Bienvenidos a esta increible aventura",
-    foto: "https://picsum.photos/400?random=2",
-    likes: "1239",
-    dislikes: "12"
-  },
-  {
-    autor: "freider",
-    descripcion: "Bienvenidos a esta increible aventura",
-    foto: "https://picsum.photos/400?random=3",
-    likes: "1239",
-    dislikes: "12"
-  },
-  {
-    autor: "freider",
-    descripcion: "Bienvenidos a esta increible aventura",
-    foto: "https://picsum.photos/400?random=4",
-    likes: "1239",
-    dislikes: "12"
-  }
 ];
 
 export default function Album() {
@@ -104,8 +84,10 @@ export default function Album() {
   useEffect(()=>{
     axios.post("http://localhost:3800/api/get-fotos" )
         .then(res => {
+          console.log(res)
             let backCards = res.data.response;
             setCards(backCards);
+            console.log(backCards);
         })
         .catch(error => {
           console.error('There was an error!', error);
@@ -118,6 +100,18 @@ export default function Album() {
     var newCards = [...cards];
     newCards[index].likes=String(parseInt(newCards[index].likes)+1);
     setCards(newCards)
+    let payload = {
+      action:"like",
+      fotoId: cards[index]._id
+    }
+    axios.post("http://localhost:3800/api/like",payload )
+      .then(res => {
+        console.log("like",res)
+      })
+      .catch(error => {
+        alert("Intentelo otra vez")
+        console.error('There was an error!', error);
+    });
     //let newLikes = likes;
     //newLikes[id - 1] += 1;
     //setCountLikes([...newLikes]);
@@ -126,6 +120,18 @@ export default function Album() {
     var newCards = [...cards];
     newCards[index].dislikes=String(parseInt(newCards[index].dislikes)+1);
     setCards(newCards)
+    let payload = {
+      action:"dislike",
+      fotoId: cards[index]._id
+    }
+    axios.post("http://localhost:3800/api/like",payload )
+      .then(res => {
+        console.log("like",res)
+      })
+      .catch(error => {
+        alert("Intentelo otra vez")
+        console.error('There was an error!', error);
+    });
   };
 
 
@@ -173,22 +179,15 @@ export default function Album() {
           <Grid container spacing={4}>
             {cards.map((card, i) => (
               <Grid item key={i} xs={12} sm={6} md={4}>
-                <GridListTile>
-                <img src={card.foto} />
-                </GridListTile>
                 <Card className={classes.card}>
-                  {/* <CardMedia>
-                  <img src={card.foto} />
-                  </CardMedia> */}
                   {<CardMedia
-                    component='img'
                     className={classes.cardMedia}
-                    image={card.foto}
+                    image={card.imagen}
                     title="Image title"
                   />}
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Autor: {card.autor}
+                      Autor: {card.dueño}
                     </Typography>
                     <Typography>
                       {card.descripcion}
