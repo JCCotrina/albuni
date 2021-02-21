@@ -24,22 +24,6 @@ import CameraIcon from '@material-ui/icons/PhotoCamera';
 import { useHistory } from "react-router-dom";
 import Album from "./components/Album/Album";
 import "./App.css";
-import Album from "./components/Album/Album";
-import { AppBar, Toolbar } from "@material-ui/core";
-import CameraIcon from '@material-ui/icons/PhotoCamera';
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const API_BASE = 'http://localhost:3800/api';
 
 const useStyles = makeStyles((theme) => ({
