@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Form from './SignUpConsumidor';
 import reportWebVitals from './reportWebVitals';
+import SignUpConsumidor from './SignUpConsumidor';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SignUpConsumidor />
   </React.StrictMode>,
   document.getElementById('root')
 );
