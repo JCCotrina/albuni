@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+import {Grid, GridListTile} from '@material-ui/core/';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import { AppBar } from "@material-ui/core";
 import { ThumbUp, ThumbDownAlt } from "@material-ui/icons";
-//import axios from "axios";
+import axios from "axios";
 
 function Copyright() {
   return (
@@ -28,6 +28,7 @@ function Copyright() {
     </Typography>
   );
 }
+
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -100,15 +101,16 @@ const cardsList = [
 
 export default function Album() {
   var [cards,setCards] = useState(cardsList);
-  /* useEffect(()=>{
-    axios.get("/api/album" )
+  useEffect(()=>{
+    axios.post("http://localhost:3800/api/get-fotos" )
         .then(res => {
-            console.log(res);
+            let backCards = res.data.response;
+            setCards(backCards);
         })
         .catch(error => {
           console.error('There was an error!', error);
         });
-  },[]) */
+  },[]);
 
   const classes = useStyles();
   const darLike = function (index) {
@@ -171,12 +173,19 @@ export default function Album() {
           <Grid container spacing={4}>
             {cards.map((card, i) => (
               <Grid item key={i} xs={12} sm={6} md={4}>
+                <GridListTile>
+                <img src={card.foto} />
+                </GridListTile>
                 <Card className={classes.card}>
-                  <CardMedia
+                  {/* <CardMedia>
+                  <img src={card.foto} />
+                  </CardMedia> */}
+                  {<CardMedia
+                    component='img'
                     className={classes.cardMedia}
                     image={card.foto}
                     title="Image title"
-                  />
+                  />}
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
                       Autor: {card.autor}
