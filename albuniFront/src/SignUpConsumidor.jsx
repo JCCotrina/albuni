@@ -10,7 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { DropzoneArea } from "material-ui-dropzone";
 import axios from 'axios';
+import { AppBar, Toolbar } from "@material-ui/core";
+import CameraIcon from '@material-ui/icons/PhotoCamera';
 import { useHistory } from "react-router-dom";
+import Album from "./components/Album/Album";
 import "./App.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -97,17 +100,29 @@ export default function SignUpConsumidor() {
     });
   }
   return (
-    
+    <div component="main" maxWidth="xs" className={classes.container} >
       <div>
-        <Button variant="contained" color="primary" onClick={handleClickOpen}>
-          Subir
-        </Button>
+        <AppBar position="relative">
+          <Toolbar>
+            <CameraIcon className={classes.icon} />
+            <Typography variant="h6" color="inherit" noWrap>
+              ALBUNI
+            </Typography>
+            <Button variant="contained" color="primary" onClick={handleClickOpen}>
+              Subir
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+      <div>
+        <Album></Album>
+      </div>
       <Dialog open={open} onClose={handleClose} aria-label="form-dialog-title">
-        <DialogTitle id ="form-dialog-title" style={{textAlign:'center'}}>
-          Subir Imagen
-        </DialogTitle>
-        <DialogContent dividers={true} >
-          <TextField
+         <DialogTitle id ="form-dialog-title" style={{textAlign:'center'}}>
+           Subir Imagen
+         </DialogTitle>
+         <DialogContent dividers={true} >
+           <TextField
                   autoComplete="Nombre"
                   name="nombre"
                   variant="outlined"
@@ -158,6 +173,7 @@ export default function SignUpConsumidor() {
             </DialogActions>
         </DialogContent>
       </Dialog>
-      </div>
+    </div>
   );
+  
 }
