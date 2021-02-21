@@ -24,25 +24,7 @@ import CameraIcon from '@material-ui/icons/PhotoCamera';
 import { useHistory } from "react-router-dom";
 import Album from "./components/Album/Album";
 import "./App.css";
-<<<<<<< HEAD:albuniFront/src/App.jsx
 const API_BASE = 'http://localhost:3800/api';
-=======
-import Album from "./components/Album/Album";
-import { AppBar, Toolbar } from "@material-ui/core";
-import CameraIcon from '@material-ui/icons/PhotoCamera';
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
->>>>>>> 24beb2ab417686411ae4164120f72145701fc2fa:albuniFront/src/SignUpConsumidor.jsx
 
 const useStyles = makeStyles((theme) => ({
   container:{
