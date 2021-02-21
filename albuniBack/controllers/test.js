@@ -16,7 +16,6 @@ exports.subirFoto = async (req, res) => {
 };
 
 exports.getFotos = async (req, res) => {
-    console.log("Get fotos")
     try {
         const fotos = await Fotos.find({}).exec();
         return res.status(200).json({
@@ -27,7 +26,6 @@ exports.getFotos = async (req, res) => {
 
 exports.likeDislike = async (req, res) => {
     const { action, fotoId } = req.body;
-    console.log(action,fotoId)
     let fotoUpdated;
     try {
         if (action == "like") {
