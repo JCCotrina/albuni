@@ -11,7 +11,7 @@ const urlDB = 'mongodb+srv://userQhatu:softwareQhatu@qhatu.5zrri.mongodb.net/qha
 
 //Conexion Database
 exports.dataBaseConection = () => {
-    /*if (clusterWorkerSize > 1) {
+    if (clusterWorkerSize > 1) {
         if (cluster.isMaster) {
             for (let i = 0; i < clusterWorkerSize; i++) {
                 cluster.fork();
@@ -39,7 +39,7 @@ exports.dataBaseConection = () => {
                 })
                 .catch((err) => console.log(err));
         }
-    } else {*/
+    } else {
     mongoose
         .connect(urlDB, {
             useNewUrlParser: true,
@@ -55,5 +55,5 @@ exports.dataBaseConection = () => {
             });
         })
         .catch((err) => console.log(err));
-    //}
+    }
 };
