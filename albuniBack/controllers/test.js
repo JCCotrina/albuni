@@ -16,6 +16,7 @@ exports.subirFoto = async (req, res) => {
 };
 
 exports.getFotos = async (req, res) => {
+    console.log("Get fotos")
     try {
         const fotos = await Fotos.find({}).exec();
         return res.status(200).json({
