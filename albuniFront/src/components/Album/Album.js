@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+import {Grid, GridListTile} from '@material-ui/core/';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import { AppBar } from "@material-ui/core";
 import { ThumbUp, ThumbDownAlt } from "@material-ui/icons";
-//import axios from "axios";
+import axios from "axios";
 
 function Copyright() {
   return (
@@ -28,6 +28,7 @@ function Copyright() {
     </Typography>
   );
 }
+
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -69,46 +70,29 @@ const getImage = function (card) {
 
 const cardsList = [
   {
-    autor: "freider",
+    id : "12344",
+    dueño: "freider",
     descripcion: "Bienvenidos a esta increible aventura",
-    foto: "https://picsum.photos/400?random=1",
+    imagen: "https://picsum.photos/400?random=1",
     likes: "1239",
     dislikes: "12"
   },
-  {
-    autor: "freider",
-    descripcion: "Bienvenidos a esta increible aventura",
-    foto: "https://picsum.photos/400?random=2",
-    likes: "1239",
-    dislikes: "12"
-  },
-  {
-    autor: "freider",
-    descripcion: "Bienvenidos a esta increible aventura",
-    foto: "https://picsum.photos/400?random=3",
-    likes: "1239",
-    dislikes: "12"
-  },
-  {
-    autor: "freider",
-    descripcion: "Bienvenidos a esta increible aventura",
-    foto: "https://picsum.photos/400?random=4",
-    likes: "1239",
-    dislikes: "12"
-  }
 ];
 
 export default function Album() {
   var [cards,setCards] = useState(cardsList);
-  /* useEffect(()=>{
-    axios.get("/api/album" )
+  useEffect(()=>{
+    axios.post("http://localhost:3800/api/get-fotos" )
         .then(res => {
-            console.log(res);
+          console.log(res)
+            let backCards = res.data.response;
+            setCards(backCards);
+            console.log(backCards);
         })
         .catch(error => {
           console.error('There was an error!', error);
         });
-  },[]) */
+  },[]);
 
   const classes = useStyles();
   const darLike = function (index) {
@@ -116,6 +100,18 @@ export default function Album() {
     var newCards = [...cards];
     newCards[index].likes=String(parseInt(newCards[index].likes)+1);
     setCards(newCards)
+    let payload = {
+      action:"like",
+      fotoId: cards[index]._id
+    }
+    axios.post("http://localhost:3800/api/like",payload )
+      .then(res => {
+        console.log("like",res)
+      })
+      .catch(error => {
+        alert("Intentelo otra vez")
+        console.error('There was an error!', error);
+    });
     //let newLikes = likes;
     //newLikes[id - 1] += 1;
     //setCountLikes([...newLikes]);
@@ -124,6 +120,18 @@ export default function Album() {
     var newCards = [...cards];
     newCards[index].dislikes=String(parseInt(newCards[index].dislikes)+1);
     setCards(newCards)
+    let payload = {
+      action:"dislike",
+      fotoId: cards[index]._id
+    }
+    axios.post("http://localhost:3800/api/like",payload )
+      .then(res => {
+        console.log("like",res)
+      })
+      .catch(error => {
+        alert("Intentelo otra vez")
+        console.error('There was an error!', error);
+    });
   };
 
 
@@ -172,14 +180,14 @@ export default function Album() {
             {cards.map((card, i) => (
               <Grid item key={i} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
-                  <CardMedia
+                  {<CardMedia
                     className={classes.cardMedia}
-                    image={card.foto}
+                    image={card.imagen}
                     title="Image title"
-                  />
+                  />}
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Autor: {card.autor}
+                      Autor: {card.dueño}
                     </Typography>
                     <Typography>
                       {card.descripcion}
