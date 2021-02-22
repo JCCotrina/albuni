@@ -1,30 +1,24 @@
 import React from "react";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import { DropzoneArea } from "material-ui-dropzone";
 import axios from 'axios';
 import { AppBar, Toolbar } from "@material-ui/core";
 import CameraIcon from '@material-ui/icons/PhotoCamera';
-import { useHistory } from "react-router-dom";
 import Album from "./components/Album/Album";
 import "./App.css";
-const API_BASE = 'http://localhost:8001/api';
+
+var list_ip =['http://localhost:','http://localhost:2','http://localhost:3'];
+
+var API_BASE = list_ip[0];
+
+const second = 2000;
 
 const useStyles = makeStyles((theme) => ({
   container:{
@@ -53,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUpConsumidor() {
-  let history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
@@ -94,15 +87,34 @@ export default function SignUpConsumidor() {
         alert("Las contraseñas deben coincidir")
         isValid = false;
       }
-      
     }
-    
     return isValid;
   }
+
+  setInterval(function() {
+
+    list_ip.every ( e => {
+      axios.post(`${e}${8001}/api/say-hello`,{} )
+      .then(res => { 
+        if(res.data.ok) {
+          console.log(e);
+          console.log(res.data);
+          API_BASE = e;
+          return true;
+        }else{
+          return false;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    })
+  }, second);
+
   const handleSubmit=(event) => {
     event.preventDefault();
     if(validateData()){
-      axios.post(`${API_BASE}/subir-foto`, newUser )
+      axios.post(`${API_BASE}${8002}/api/subir-foto`, newUser )
         .then(res => { 
           console.log();
           if(res.data.response.likes === 0){
@@ -146,7 +158,7 @@ export default function SignUpConsumidor() {
         </AppBar>
       </div>
       <div>
-        <Album></Album>
+        <Album server={API_BASE}></Album>
       </div>
       <Dialog open={open} onClose={handleClose} aria-label="form-dialog-title">
          <DialogTitle id ="form-dialog-title" style={{textAlign:'center'}}>
