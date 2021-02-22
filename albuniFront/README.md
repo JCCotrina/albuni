@@ -6,7 +6,7 @@
 #### `yarn install`
 
 
-## Instalar dependencias
+## Ejecutar el fronted
 
 #### `npm start`
 #### `yarm start`
