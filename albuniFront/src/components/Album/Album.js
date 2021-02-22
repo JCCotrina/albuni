@@ -152,7 +152,7 @@ export default function Album(props) {
                             "Lo más importante no es la cámara, sino el ojo."
                             Alfred Eisenstaedt
                         </Typography>
-                        <div className={classes.heroButtons}>
+                        {/* <div className={classes.heroButtons}>
                             <Grid container spacing={2} justify="center">
                                 <Grid item>
                                     <Button variant="contained" color="primary">
@@ -165,7 +165,7 @@ export default function Album(props) {
                                     </Button>
                                 </Grid>
                             </Grid>
-                        </div>
+                        </div> */}
                     </Container>
                 </div>
                 <Container className={classes.cardGrid} maxWidth="md">
@@ -230,7 +230,8 @@ export default function Album(props) {
                     color="textSecondary"
                     component="p"
                 >
-                    Disfruta del mundo de la fotografía
+                   “La fotografía es, antes que nada, una manera de mirar. No es la mirada misma”.
+                    Susan Sontag
                 </Typography>
             </footer>
             {/* End footer */}
