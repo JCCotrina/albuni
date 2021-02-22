@@ -47,3 +47,9 @@ exports.likeDislike = async (req, res) => {
         });
     } catch (exception) {}
 };
+
+exports.sayHello = async (req, res) => {
+    return res.status(200).json({
+        ok: true,
+    });
+};
