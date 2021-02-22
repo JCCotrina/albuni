@@ -15,8 +15,8 @@ var Democracy = require("./democracy");
 var startCluster = require("./master.js");
 
 var dem = new Democracy({
-    source: "192.168.0.19:" + process.argv[2],
-    peers: ["0.0.0.0:12345", "192.168.0.25:12346", "0.0.0.0:12347"],
+    source: "0.0.0.0:" + process.argv[2],
+    peers: ["0.0.0.0:12345", "0.0.0.0:12346", "0.0.0.0:12347"],
 });
 
 dem.on("added", function (data) {
