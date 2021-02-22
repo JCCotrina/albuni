@@ -16,18 +16,6 @@ import { AppBar } from "@material-ui/core";
 import { ThumbUp, ThumbDownAlt } from "@material-ui/icons";
 import axios from "axios";
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {"Copyright © "}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -78,11 +66,12 @@ const cardsList = [
     },
 ];
 
-export default function Album() {
+export default function Album(props) {
     var [cards, setCards] = useState(cardsList);
+    var server = props.server ;
     useEffect(() => {
         axios
-            .post("http://localhost:8003/api/get-fotos")
+            .post(`http://${server}:8003/api/get-fotos`)
             .then((res) => {
                 console.log(res);
                 let backCards = res.data.response;
@@ -105,7 +94,7 @@ export default function Album() {
             fotoId: cards[index]._id,
         };
         axios
-            .post("http://localhost:8001/api/like", payload)
+            .post(`http://${server}:8003/api/like`, payload)
             .then((res) => {
                 console.log("like", res);
             })
@@ -128,7 +117,7 @@ export default function Album() {
             fotoId: cards[index]._id,
         };
         axios
-            .post("http://localhost:8002/api/like", payload)
+            .post(`http://${server}:8003/api/like`, payload)
             .then((res) => {
                 console.log("like", res);
             })
@@ -160,8 +149,8 @@ export default function Album() {
                             color="textSecondary"
                             paragraph
                         >
-                            Bienvenido a nuestra comunidad, en este espacio
-                            puedes compartir tus fotos.
+                            "Lo más importante no es la cámara, sino el ojo."
+                            Alfred Eisenstaedt
                         </Typography>
                         <div className={classes.heroButtons}>
                             <Grid container spacing={2} justify="center">
@@ -233,7 +222,7 @@ export default function Album() {
             {/* Footer */}
             <footer className={classes.footer}>
                 <Typography variant="h6" align="center" gutterBottom>
-                    Footer
+                    Recuerda:
                 </Typography>
                 <Typography
                     variant="subtitle1"
@@ -241,9 +230,8 @@ export default function Album() {
                     color="textSecondary"
                     component="p"
                 >
-                    Something here to give the footer a purpose!
+                    Disfruta del mundo de la fotografía
                 </Typography>
-                <Copyright />
             </footer>
             {/* End footer */}
         </React.Fragment>
