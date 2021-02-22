@@ -10,12 +10,13 @@
  * node test.js 12347
  */
 const server = require("./index");
-var Democracy = require("democracy");
+var cluster = require("cluster");
+var Democracy = require("./democracy");
 var startCluster = require("./master.js");
 
 var dem = new Democracy({
-    source: "0.0.0.0:" + process.argv[2],
-    peers: ["0.0.0.0:12345", "0.0.0.0:12346", "0.0.0.0:12347"],
+    source: "192.168.0.19:" + process.argv[2],
+    peers: ["0.0.0.0:12345", "192.168.0.25:12346", "0.0.0.0:12347"],
 });
 
 dem.on("added", function (data) {
@@ -24,6 +25,9 @@ dem.on("added", function (data) {
 
 dem.on("removed", function (data) {
     console.log("Removed: ", data);
+    if (dem.isLeader) {
+        cluster.disconnect();
+    }
 });
 
 dem.on("elected", function (data) {
