@@ -7,7 +7,7 @@ Para instalar todas las dependencias del servidor ejecute: npm install \
 Para un correcto funcionamiento debe editar el archivo test.js con los ips de los nodos(peers). 
 Para ejecutar el servidor: node test.js 12345\
 Para ejecutar el servidor con varios nodos ejecute: node test.js puerto \
-El rango de puertos disponibles es [12345,12346,12347] \
+El rango de puertos disponibles es [12345,12346,12347]  \
 
 ## Available Scripts
 
