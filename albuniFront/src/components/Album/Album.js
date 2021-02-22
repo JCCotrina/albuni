@@ -69,13 +69,15 @@ export default function Album(props) {
   var [cards, setCards] = useState(cardsList);
   var server2 = props.server;
   var [server, setServer] = useState(server2);
-  useEffect(() => {
-    setServer(server2);
-  }, [server2]);
-  console.log("holaaaa", server);
-  useEffect(async () => {
+
+  /*  useEffect(() => {
+    setServer(localStorage.getItem("ip"));
+  }); */
+
+  const getGaleria = async () => {
+    console.log("SE ENVIA GET AL BACK");
     await axios
-      .post(`${server}8003/api/get-fotos`)
+      .post(`${localStorage.getItem("ip")}8003/api/get-fotos`)
       .then((res) => {
         console.log(res);
         let backCards = res.data.response;
@@ -85,6 +87,10 @@ export default function Album(props) {
       .catch((error) => {
         console.error("There was an error!", error);
       });
+  };
+
+  useEffect(() => {
+    getGaleria();
   }, []);
 
   const classes = useStyles();
@@ -98,11 +104,14 @@ export default function Album(props) {
       fotoId: cards[index]._id,
     };
     axios
-      .post(`${server}8003/api/like`, payload)
+      .post(`${localStorage.getItem("ip")}8003/api/like`, payload)
       .then((res) => {
         console.log("like", res);
       })
       .catch((error) => {
+        var newCards = [...cards];
+        newCards[index].likes = String(parseInt(newCards[index].likes) - 1);
+        setCards(newCards);
         alert("Intentelo otra vez");
         console.error("There was an error!", error);
       });
@@ -119,12 +128,17 @@ export default function Album(props) {
       fotoId: cards[index]._id,
     };
     axios
-      .post(`${server}8003/api/like`, payload)
+      .post(`${localStorage.getItem("ip")}8003/api/like`, payload)
       .then((res) => {
         console.log("like", res);
       })
       .catch((error) => {
         alert("Intentelo otra vez");
+        var newCards = [...cards];
+        newCards[index].dislikes = String(
+          parseInt(newCards[index].dislikes) - 1
+        );
+        setCards(newCards);
         console.error("There was an error!", error);
       });
   };

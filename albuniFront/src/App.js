@@ -14,7 +14,7 @@ import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Album from "./components/Album/Album";
 import "./App.css";
 
-const second = 20000;
+const second = 2000;
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUpConsumidor() {
-  var list_ip = ["http://192.168.0.21:", "http://192.168.0.19:"];
+  var list_ip = ["http://192.168.0.24:", "http://192.168.0.19:"];
 
   const [API_BASE, setAPI] = React.useState(list_ip[0]);
   const classes = useStyles();
@@ -99,6 +99,7 @@ export default function SignUpConsumidor() {
             console.log(e);
             console.log(res.data);
             setAPI(e);
+            localStorage.setItem("ip", e);
             return true;
           }
         })
