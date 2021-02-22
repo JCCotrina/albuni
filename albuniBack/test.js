@@ -9,10 +9,9 @@
  * node test.js 12346
  * node test.js 12347
  */
-//const server = require("./index");
+const server = require("./index");
 var Democracy = require("democracy");
-var startCluster = require('./master.js')
-
+var startCluster = require("./master.js");
 
 var dem = new Democracy({
     source: "0.0.0.0:" + process.argv[2],
@@ -29,8 +28,7 @@ dem.on("removed", function (data) {
 
 dem.on("elected", function (data) {
     console.log("You are elected leader!");
-    startCluster()
-    // server.dataBaseConection();
+    startCluster();
 });
 
 dem.on("leader", function (data) {

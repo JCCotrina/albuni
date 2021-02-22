@@ -24,7 +24,7 @@ import CameraIcon from '@material-ui/icons/PhotoCamera';
 import { useHistory } from "react-router-dom";
 import Album from "./components/Album/Album";
 import "./App.css";
-const API_BASE = 'http://localhost:3800/api';
+const API_BASE = 'http://localhost:8001/api';
 
 const useStyles = makeStyles((theme) => ({
   container:{
